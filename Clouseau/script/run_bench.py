@@ -36,10 +36,10 @@ def invoc_cmd(cmd, cwd=None):
     except subprocess.CalledProcessError as e:
         print(e.output)
 
-# benchmarks = ["Database", "Firewall", "RingLeaderElection", "EspressoMachine", "BankServer", "Simplified2PC", "HeartBeat", "ChainReplication", "Paxos", "Raft", "Anno2PCModel"]
+benchmarks = ["Database", "Firewall", "RingLeaderElection", "EspressoMachine", "BankServer", "Simplified2PC", "HeartBeat", "ChainReplication", "Paxos", "Raft", "Anno2PCModel"]
 # benchmarks = ["ChainReplication", "Paxos", "Raft"]
 # benchmarks = ["Raft"]
-benchmarks = ["Database", "Firewall"]
+# benchmarks = ["Database", "Firewall"]
 
 def syn_num_map(name):
     return 500
