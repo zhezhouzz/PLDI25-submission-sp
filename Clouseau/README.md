@@ -1,73 +1,86 @@
-# P PBT
-Property-Based Testing For P
+## Getting Started Guide
 
-# Install
+We recommend machines have at least 8 GB of memory and 8 GB of hard
+disk space available when building and running Docker images. All
+benchmarks were tested on a Linux machine having Intel i7-8700 CPU @ 3.20GHz with `64GB` of RAM. The estimated execution time in the rest of the document also fits this setting.
 
-The easiest way to install the dependencies is via [OPAM](https://opam.ocaml.org/doc/Install.html).
+### Requirements
 
-```
-  opam init --auto-setup
-  opam update
-  opam switch create PPBT --package=ocaml-variants.4.14.1+options,ocaml-option-flambda
-  eval $(opam env)
-  opam install dune core core_unix yojson conf-c++ conf-python qcheck ocolor dolog ocamlbuild z3 ppx_deriving_yojson menhirLib menhir
-```
+This artifact is built as a Docker image. Before proceeding, ensure
+Docker is installed. (On *nix, `sudo docker run hello-world` will test
+your installation.) If Docker is not installed, install it via the
+[official installation guide](https://docs.docker.com/get-docker/). This guide was tested using Docker version `20.10.23`, but any contemporary Docker version is expected to work.
 
-The download the dependent library: https://github.com/zhezhouzz/language_utils, then install it.
+### Using the Pre-Built Docker Image
 
-```
-    cd language_utils
-    opam install .
-```
+You may fetch the pre-built Docker image from Docker Hub:
 
-Then compile this repo:
+    $ docker pull clouseau2025/clouseau:pldi-2025
 
-```
-    dune build
-```
+You may also download docker image from Zenodo, and load the docker image from the downloaded file `clouseau:pldi-2025.tar.gz`.
 
-# Run Synthesizer
+    $ docker load < clouseau:pldi-2025.tar.gz
+
+### Building the Docker Image (Optional)
+
+We also include a Dockerfile to build docker image for Clouseau:
 
 ```
-    python3 script/run_bench.py [path to TestExamples-PTestGeneration] [command] [benchmark name] [spec name] (verbose)
+docker build . --tag clouseau2025/clouseau:pldi-2025
 ```
 
-The supported benchmarks and specs are shown in `benchmarks`.
-Add `verbose` can print the actual shell commands.
-Currently, please set `command` as `random-p-sfa` to generate random client.
+**Resource Requirements:** Although our tool **Clouseau** doesn't have large memory usage, building the docker image needs more than `32GB` RAM available. This memory usage requirement comes from the installation of the SMT solver `z3` (https://github.com/Z3Prover/z3). When the RAM limit of Docker (by default, it is `8GB` on Mac, no limit on Linux machine) is lower than `32GB`, the installation of `z3` will be killed and the `docker build` will fail.
+The memory error can be fixed by increasing the RAM limit in Docker; you can find instructions for doing so on Mac here: (https://docs.docker.com/desktop/settings/mac/#resources), for Windows here: (https://docs.docker.com/desktop/settings/windows/#resources), and for Linux here: (https://docs.docker.com/desktop/settings/linux/#resources). The pre-built docker image is built on a Linux machine having Intel i7-8700 CPU @ 3.20GHz with `64GB` of RAM, it took `30` min to build.
+
+### Running the Docker Image
+
+To launch a shell in the Docker image:
+
+    $ docker run -it -m="8g" clouseau2025/clouseau:pldi-2025
+
+To compile **Clouseau**:
+
+    $ dune build && cp _build/default/bin/main.exe main.exe
+The compilation result of **Clouseau** is an executable `_build/default/bin/main.exe`. For the sake of convenience, we copy it under the current directory. You can run **Clouseau** by executing `main.exe <args>` directly or executing it via `dune`, that is `dune exec -- bin/main.exe <args>`.
+
+You can print **Clouseau**'s help message to verify the tool operating
+successfully:
+
+    $ ./main.exe --help
+
+### Running Benchmarks of Clouseau
+
+#### Run synthesizer
+
+```
+  dune exec -- bin/main.exe syn-benchmark [benchmark nane]
+```
 
 For example,
 
 ```
-    python3 script/run_bench.py ~/workplace/zzws/src/TestExamples-PTestGeneration random-p-sfa ClockBoundFormalModels ClockBoundInvariants
+  dune exec -- bin/main.exe syn-benchmark Database
 ```
 
-A script run all cases:
+Will print following output that contains synthesized program and synthesis time:
 
 ```
-    ./script/run.sh
+let (x) = assume[(int)] true in
+gen writeReq(x);
+let (y) = assume[(int)] ¬y == x in
+gen writeReq(y);
+let (tmp_2) = obs writeRsp; assert tmp_2 == y in
+let (tmp_1) = obs writeRsp; assert tmp_1 == x in
+gen readReq();
+let (tmp_0, s_0) = obs readRsp; assert tmp_0 == y ∧ s_0 in
+()
+synthesis time: 2.765237
 ```
 
-# Run P
+#### Comprehensive Scripts
 
-Goto corresponding folder with the same name as benchmark name in `TestExamples-PTestGeneration` repo.
-
-```
-    p compile && p check -tc Syn
-```
-
-The generated code are in `PSyn` folder, structured as following:
+The following scripts run the benchmark suite displayed in Table 1 of the paper, which will take about one and half hour to run.
 
 ```
-PSyn
-├── Library.p
-├── SynClient.p
-├── SynDriver.p
-└── Warapper.p
+python3 script/run_bench.py
 ```
-
-+ `SynClient.p`: output of synthesizer.
-+ `Library.p`: auxiliary functions used by synthesized client machines in `SynClient.p`.
-+ `Warapper.p`: A wrapper convert messages into the format can be recognized by P Model.
-+ `SynDriver.p`: test driver and script for synthesized client machines.
-
