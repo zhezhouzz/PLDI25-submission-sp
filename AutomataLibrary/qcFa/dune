@@ -1,0 +1,22 @@
+; (env
+;  (dev
+;   (flags
+;    (:standard -w -32-35-27-33-26-64)))
+;  (release
+;   (flags
+;    (:standard -w -32-35-27-33-26-64))
+;   (ocamlopt_flags
+;    (:standard -unsafe -noassert -inline 100))))
+
+(library
+ (public_name AutomataLibrary.qcFa)
+ (name qcFa)
+ (wrapped true)
+ (modules
+   gen
+   qcFa
+ )
+ (inline_tests)
+ (preprocess
+  (pps ppx_optcomp ppx_compare ppx_sexp_conv ppx_here ppx_inline_test))
+ (libraries fa qcheck str))

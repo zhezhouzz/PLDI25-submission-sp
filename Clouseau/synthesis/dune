@@ -1,0 +1,18 @@
+(library
+ (name synthesis)
+ (public_name haft.synthesis)
+ (wrapped true)
+ (libraries syntax language rawdesym)
+ (modules
+  common
+  gamma
+  abduction
+  feature
+  optimize
+  norm
+  refine
+  mkTerm
+  synthesis
+)
+(preprocess (pps ppx_here))
+)
