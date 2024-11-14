@@ -7,7 +7,12 @@ RUN . .venv/bin/activate
 RUN sudo apt-get install -y libgmp-dev
 RUN opam init --auto-setup
 RUN opam update
-RUN opam switch create HAT --package=ocaml-variants.4.14.1+options,ocaml-option-flambda
+RUN opam switch create Cloiseau --package=ocaml-variants.4.14.1+options,ocaml-option-flambda
+RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+RUN sudo dpkg -i packages-microsoft-prod.deb
+RUN rm packages-microsoft-prod.deb
+RUN sudo apt install -y default-jre
+RUN dotnet tool install --global P
 RUN eval $(opam env)
 RUN opam repo add coq-released https://coq.inria.fr/opam/released
 RUN opam update
