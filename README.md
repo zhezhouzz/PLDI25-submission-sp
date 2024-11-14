@@ -1,6 +1,6 @@
 # PLDI25-submission-sp
 
-The main code of our tool, **Clouseau**, along with the benchmark suites, is located in the `Clouseau` folder. The `zutils` folder contains utility functions, while `AutomaraLibrary` serves as a helper library for symbolic finite automata (SFA).
+The main code of our tool, **Clouseau**, is located in the `Clouseau` folder, with the benchmark suites found in `Clouseau/benchmarks`. The `zutils` folder contains utility functions, while `AutomaraLibrary` serves as a helper library for symbolic finite automata (SFA).
 
 ## Getting Started Guide
 
@@ -83,7 +83,7 @@ synthesis time: 2.765237
 
 #### Comprehensive Scripts
 
-The following scripts run the benchmark suite displayed in Table 1 of the paper, which will take about one and half hour to run.
+The following scripts execute the benchmark suite shown in Table 1 of the paper, which will take approximately one and a half hours to complete.
 
 ```
 python3 script/run_bench.py
