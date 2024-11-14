@@ -283,12 +283,12 @@ def fix():
             j = json.dump(j, f)
 
 if __name__ == '__main__':
-    # do_syn()
+    do_syn()
     # do_eval()
-    # do_compile()
-    # run_syn_p()
-    # run_random_p()
-    # run_default_p()
+    do_compile()
+    run_syn_p()
+    run_random_p()
+    run_default_p()
     j = load_stat()
     print_cols(benchmarks, j)
     # fix()

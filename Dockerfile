@@ -35,3 +35,4 @@ RUN cd AutomataLibrary && opam install . && cd ..
 RUN eval $(opam env)
 WORKDIR Clouseau
 USER root
+RUN dune build
