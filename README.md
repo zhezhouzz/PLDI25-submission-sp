@@ -21,7 +21,7 @@ You may fetch the pre-built Docker image from Docker Hub:
 
     $ docker pull clouseau2025/clouseau:pldi-2025
 
-You may also download docker image from Zenodo, and load the docker image from the downloaded file `clouseau:pldi-2025.tar.gz`.
+You may also download docker image from Zenodo (https://zenodo.org/records/14166141), and load the docker image from the downloaded file `clouseau:pldi-2025.tar.gz`.
 
     $ docker load < clouseau:pldi-2025.tar.gz
 
