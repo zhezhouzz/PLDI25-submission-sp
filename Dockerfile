@@ -36,6 +36,7 @@ RUN eval $(opam env)
 WORKDIR Clouseau
 USER root
 RUN dune build
+RUN dotnet tool install --global P
 RUN ln -s ~/.dotnet/tools/p /usr/bin/p
 RUN mkdir stat
 RUN mkdir output

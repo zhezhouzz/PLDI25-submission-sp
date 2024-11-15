@@ -47,15 +47,15 @@ def syn_num_map(name):
 def default_num_map(name):
     return 2000
 
-dict = {"Database":10000,
-        "EspressoMachine":10000,
-        "Simplified2PC":10000,
-        "HeartBeat":10000,
-        "BankServer":10000,
-        "RingLeaderElection":10000,
-        "Firewall":50,
-        "ChainReplication":10000,
-        "Paxos":10000,
+dict = {"Database":4000,
+        "EspressoMachine":4000,
+        "Simplified2PC":4000,
+        "HeartBeat":4000,
+        "BankServer":4000,
+        "RingLeaderElection":4000,
+        "Firewall":1000,
+        "ChainReplication":4000,
+        "Paxos":4000,
         "Raft":1000,
         "Anno2PCModel": 1000}
 
