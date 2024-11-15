@@ -113,7 +113,7 @@ def print_pat_col3(stat):
     # return [safe_print_float(stat["n_retry"])+ "\\%"]
     # return ["${:.1f}$".format(stat["n_retry"])]
     # return ["$({:.0f}\\%, {:.2f}\\%)$".format(stat["syn_ratio"], stat["random_ratio"])]
-    return [ print_tries(stat["syn_ratio"]), print_tries(stat["default_ratio"]), print_tries(stat["random_ratio"])]
+    return [ print_tries(stat["syn_ratio"]), print_tries(stat["random_ratio"]), print_tries(stat["default_ratio"])]
 
 def print_pat_col4(statA):
     stat = statA["algo_complexity"]

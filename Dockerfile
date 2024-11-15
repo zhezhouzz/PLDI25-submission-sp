@@ -36,3 +36,4 @@ RUN eval $(opam env)
 WORKDIR Clouseau
 USER root
 RUN dune build
+RUN ln -s ~/.dotnet/tools/p /usr/bin/p
