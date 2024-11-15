@@ -166,7 +166,7 @@ def load_stat():
 def load_eval_stat(filename):
     if not os.path.exists(filename):
         with open(filename, 'w') as f:
-            f.write("")
+            f.write("{}")
     with open (filename, "r") as f:
         data = json.load(f)
     return data
