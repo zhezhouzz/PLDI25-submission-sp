@@ -229,6 +229,11 @@ module Stat = struct
           (match !record with None -> _die [%here] | Some x -> x);
       }
     in
+    let () =
+      if not (Sys.file_exists filename) then
+        let f = open_out filename in
+        close_out f
+    in
     let json = stat_to_yojson stat in
     (* let () = Printf.printf "%s\n" @@ Yojson.Safe.to_string json in *)
     (* let () = Printf.printf "file: %s\n" filename in *)
