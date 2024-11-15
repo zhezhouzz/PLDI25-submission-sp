@@ -37,3 +37,5 @@ WORKDIR Clouseau
 USER root
 RUN dune build
 RUN ln -s ~/.dotnet/tools/p /usr/bin/p
+RUN mkdir stat
+RUN mkdir output
